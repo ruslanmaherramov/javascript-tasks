@@ -39,34 +39,20 @@ function calculateCalories(params, typeOfExercise, method) {
 
   const exercise = exercises[typeOfExercise];
 
-  if (!exercise) {
-    throw new Error("Invalid exercise type");
-  }
-
-  const calculateCaloriesFn = exercise.calculateCalories;
-  let args;
+  if (!exercise) throw new Error("Invalid exercise type");
 
   // define params depends on type of exercise
-  if (typeOfExercise === 'cardio') {
-    args = [params.duration, params.intensity];
-  } else if (typeOfExercise === 'strength') {
-    args = [params.weight, params.reps];
-  } else {
-    throw new Error("Invalid exercise type");
-  }
+  const args = typeOfExercise === 'cardio'
+    ? [params.duration, params.intensity]
+    : [params.weight, params.reps];
 
-  // use one of the methods depends on arguments
-  if (method === 'call') {
-    return calculateCaloriesFn.call(exercise, ...args);
-  } else if (method === 'apply') {
-    return calculateCaloriesFn.apply(exercise, args); // use args array for apply() method
-  } else if (method === 'bind') {
-    const boundCalculateCaloriesFn = calculateCaloriesFn.bind(exercise);
 
-    return boundCalculateCaloriesFn(...args);
-  } else {
-    throw new Error("Invalid method type");
-  }
+  // use one of the methods specified in arguments
+  if (method === 'call') return exercise.calculateCalories.call(exercise, ...args);
+  if (method === 'apply') return exercise.calculateCalories.apply(exercise, args); // use args array for apply() method
+  if (method === 'bind') return exercise.calculateCalories.bind(exercise)(...args); // call a bound function immediately
+
+  throw new Error("Invalid method type");
 }
 
 // Usage:
