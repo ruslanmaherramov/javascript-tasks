@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    display: block;
+    min-width: 60px;
+    height: 32px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: inherit;
+    color: #414141;
+}
+
+.cardsWrap {
+    margin-top: 40px;
+}
+
+.card {
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 226px;
+    height: 314px;
+    transform: translateX(-50%);
+}
