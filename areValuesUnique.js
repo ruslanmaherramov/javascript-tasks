@@ -4,20 +4,20 @@
  */
 
 // using Set
-function areValuesUnique(numbers) {
-  const set = new Set(numbers);
-
-  if (set.size === numbers.length) {
-    return true;
-  }
-
-  return false;
-}
+// function areValuesUnique(numbers) {
+//   const set = new Set(numbers);
+//
+//   if (set.size === numbers.length) {
+//     return true;
+//   }
+//
+//   return false;
+// }
 
 // using some method
-// function areValuesUnique(numbers) {
-//   return numbers.some((item, index) => numbers.indexOf(item) !== index);
-// }
+function areValuesUnique(numbers) {
+  return numbers.some((item, index) => numbers.indexOf(item) !== index);
+}
 
 // using object
 // function areValuesUnique(arr) {
