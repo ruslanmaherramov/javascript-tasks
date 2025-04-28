@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<input id="input">
+
+<p id="output1"></p>
+<p id="output2"></p>
+
+<script>
+  const input = document.getElementById('input');
+  const p1 = document.getElementById('output1');
+  const p2 = document.getElementById('output2');
+
+  class InputObserver {
+    subscribers = [];
+
+    constructor() {
+      this.subscribers = [];
+    }
+
+    subscribe(sub) {
+      this.subscribers.push(sub);
+    }
+
+    publish(value) {
+      this.subscribers.forEach((sub) => sub.update(value));
+    }
+  }
+
+  class ElementSubscriber {
+    constructor(element) {
+      this.element = element;
+    }
+
+    update(value) {
+      this.element.innerHTML = value;
+    }
+  }
+
+  const inputObserver = new InputObserver();
+  const elementSubscriber1 = new ElementSubscriber(p1);
+  const elementSubscriber2 = new ElementSubscriber(p2);
+
+  inputObserver.subscribe(elementSubscriber1);
+  inputObserver.subscribe(elementSubscriber2);
+
+  input.addEventListener('input', function(event) {
+    inputObserver.publish(event.target.value);
+  });
+
+</script>
+</body>
+</html>
